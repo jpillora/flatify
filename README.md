@@ -4,13 +4,13 @@ Flatten Objects into Strings
 
 An alternative serialisation method for JavaScript
 
-# Download
+## Download
 
 ```
 npm install flatify
 ```
 
-# Usage
+## Usage
 
 ```
 var flatify = require('flatify');
