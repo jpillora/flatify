@@ -1,0 +1,21 @@
+{
+  "name": "flatify",
+  "version": "0.1.0",
+  "description": "Flatten Objects into Strings",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://jpillora@github.com/jpillora/flatify.git"
+  },
+  "author": "Jaime Pillora <dev@jpillora.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jpillora/flatify/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  }
+}
