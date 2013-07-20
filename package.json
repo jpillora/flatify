@@ -1,6 +1,6 @@
 {
   "name": "flatify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Flatten Objects into Strings",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "author": "Jaime Pillora <dev@jpillora.com>",
   "license": "MIT",
+  "readme": "README.md",
   "bugs": {
     "url": "https://github.com/jpillora/flatify/issues"
   },
