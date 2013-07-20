@@ -4,25 +4,31 @@ var esc = function(symbol) {
 
 var flatten = function(obj) {
   return (function acc(obj, line, lines) {
-    if(typeof obj === 'function')
-    return;
+    if(typeof obj === 'function' || typeof obj === 'undefined')
+      return;
+    if(obj === null)
+      return lines.push(line + '=null');
     if(typeof obj !== 'object')
-    return lines.push(line + '=' + (typeof obj === 'string' ? ('"'+obj+'"') : obj));
+      return lines.push(line + '=' + (typeof obj === 'string' ? ('"'+obj+'"') : obj));
 
-
+    var arr = obj instanceof Array;
+    var empty = true;
     for(var k in obj) {
+      empty = false;
       var ke = k.replace(/[\[\]\.=]/g, esc);
       acc( obj[k], line.length ?
-          (line) + (obj instanceof Array ? ('['+ke+']') : '.' + ke) : ke,
+          (line) + (arr ? ('['+ke+']') : '.' + ke) : ke,
         lines);
     }
+    if(empty)
+      lines.push(line + '='+ (arr ? '[]' : '{}'));
     return lines;
   })(obj, '', []).join('\n');
 };
 
 var expand = function(str) {
   var obj = {}, o, k, v, i, cha, c,
-    lines = str.split('\n');
+      line, lines = str.split('\n');
   for(i = 0; i < lines.length; ++i) {
     line = lines[i]; k = '', o = obj, c = 0;
     while(cha = line.charAt(c++)) {
@@ -30,7 +36,13 @@ var expand = function(str) {
         k += line.charAt(c++);
       } else if(cha === '=') {
         v = line.substr(c);
-        if(v.charAt(0) === '"')
+        if(v === '{}')
+          o[k] = {};
+        else if(v === '[]')
+          o[k] = [];
+        else if(v === 'null')
+          o[k] = null;
+        else if(v.charAt(0) === '"')
           o[k] = v.substr(1,v.length-2);
         else if(/true|false/.test(v))
           o[k] = v === 'true';

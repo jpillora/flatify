@@ -1,14 +1,26 @@
-var assert = require("assert");
+var expect = require("chai").expect;
 var flattify = require("../");
 
 var run = function(obj) {
-  assert.deepEqual(obj,flattify.expand(flattify.flatten(obj)));
+  expect(obj).to.deep.equal(flattify.expand(flattify.flatten(obj)));
 };
 
 describe("flatten and expand back to the original", function() {
 
   it("simple", function() {
     run({ a: 42 });
+  });
+
+  it("all types", function() {
+    //undefined and functions not supported
+    run({
+      number: 7,
+      string: "str",
+      bool: false,
+      obj: {},
+      arr: [],
+      nul: null
+    });
   });
 
   it("package.json", function() {
