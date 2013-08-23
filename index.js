@@ -16,9 +16,7 @@ var flatten = function(obj) {
     for(var k in obj) {
       empty = false;
       var ke = k.replace(/[\[\]\.=]/g, esc);
-      acc( obj[k], line.length ?
-          (line) + (arr ? ('['+ke+']') : '.' + ke) : ke,
-        lines);
+      acc(obj[k], line.length ? line + (arr ? ('['+ke+']') : '.' + ke) : ke, lines);
     }
     if(empty)
       lines.push(line + '='+ (arr ? '[]' : '{}'));
@@ -40,14 +38,14 @@ var expand = function(str) {
           o[k] = {};
         else if(v === '[]')
           o[k] = [];
-        else if(v === 'null')
-          o[k] = null;
         else if(v.charAt(0) === '"')
           o[k] = v.substr(1,v.length-2);
         else if(/true|false/.test(v))
           o[k] = v === 'true';
-        else
+        else if(/-?\d+(\.\d+)?/.test(v))
           o[k] = parseFloat(v, 10);
+        else
+          o[k] = null;
         break;
       } else if(cha === '.') {
         if(!o[k]) o[k] = {};

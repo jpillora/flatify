@@ -1,8 +1,16 @@
 var expect = require("chai").expect;
 var flattify = require("../");
 
+//expect json equivalent serialisation
 var run = function(obj) {
-  expect(obj).to.deep.equal(flattify.expand(flattify.flatten(obj)));
+
+  var jsonstr = JSON.stringify(obj);
+  var jsonobj = JSON.parse(jsonstr);
+
+  var flatstr = flattify.flatten(obj);
+  var flatobj = flattify.expand(flatstr);
+
+  expect(jsonobj).to.deep.equal(flatobj);
 };
 
 describe("flatten and expand back to the original", function() {
@@ -11,7 +19,7 @@ describe("flatten and expand back to the original", function() {
     run({ a: 42 });
   });
 
-  it("all types", function() {
+  it.only("all types", function() {
     //undefined and functions not supported
     run({
       number: 7,
@@ -19,7 +27,11 @@ describe("flatten and expand back to the original", function() {
       bool: false,
       obj: {},
       arr: [],
-      nul: null
+      nul: null,
+      infinity: Infinity,
+      nan: NaN,
+      fn: function() {},
+      undef: undefined
     });
   });
 

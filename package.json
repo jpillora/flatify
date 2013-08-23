@@ -1,6 +1,6 @@
 {
   "name": "flatify",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Flatten Objects into Strings",
   "main": "index.js",
   "scripts": {

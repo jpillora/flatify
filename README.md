@@ -4,7 +4,7 @@
 
 <description>Flatten Objects into Strings</end>
 
-An alternative serialisation method for JavaScript
+An alternative to JSON serialisation 
 
 ## Download
 
